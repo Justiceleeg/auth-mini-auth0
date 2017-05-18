@@ -1,7 +1,8 @@
 const express = require('express')
     , session = require('express-session')
     , passport = require('passport')
-    , Auth0Strategy = require('passport-auth0');
+    , Auth0Strategy = require('passport-auth0')
+    , config = require('./config')
 
 const port = 3000;
 
@@ -11,9 +12,9 @@ app.use(passport.initialize()); // MUST BE IN THIS ORDER INTIALIZE THEN SESSION
 app.use(passport.session());
 
 passport.use(new Auth0Strategy({
-   domain:       'justicepwhite.auth0.com',
-   clientID:     'Zm3dngmc7zKGLxo5rP7grjHub7iJ3GfT',
-   clientSecret: 'i3EoU-YNT9byDw2BXwSShBbsMQWRK4P6EE0w93lo_2WZNcOCllOu19aS2f0CXKoB',
+   domain:       config.domain,
+   clientID:     config.clientID,
+   clientSecret: config.clientSecret,
    callbackURL:  '/auth/callback'
  }, function(accessToken, refreshToken, extraParams, profile, done){
    //Normally I would find the user in the database here and then invoke done
